@@ -13,6 +13,18 @@ public class Livro extends ItemBiblioteca {
         this.exemplares = new ArrayList<>();
     }
     
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public ArrayList<Exemplar> getExemplares() {
+        return exemplares;
+    }
+    
     public Livro(int codigo, String titulo, int ano) {
         this(codigo, titulo, ano, "Não informado", "Não informado");
     }

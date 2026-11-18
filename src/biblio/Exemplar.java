@@ -8,6 +8,19 @@ public class Exemplar {
         this.codigo = codigo;
         this.disponivel = true;
     }
+    
+    public Exemplar(int codigo, boolean disponivel) {
+        this.codigo = codigo;
+        this.disponivel = disponivel;
+    }
+    
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
 
     public boolean verificarDisponibilidade() {
         return disponivel;

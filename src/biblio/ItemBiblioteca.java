@@ -10,6 +10,18 @@ public abstract class ItemBiblioteca {
         this.titulo = titulo;
         this.ano = ano;
     }
+    
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public int getAno() {
+        return ano;
+    }
 
     public abstract void exibirDetalhes();
 }

@@ -12,6 +12,18 @@ public class Revista extends ItemBiblioteca {
         this.periodicidade = periodicidade;
         this.exemplares = new ArrayList<>();
     }
+    
+    public int getEdicao() {
+        return edicao;
+    }
+
+    public String getPeriodicidade() {
+        return periodicidade;
+    }
+
+    public ArrayList<Exemplar> getExemplares() {
+        return exemplares;
+    }
 
     public void adicionarExemplar(Exemplar exemplar) {
         exemplares.add(exemplar);

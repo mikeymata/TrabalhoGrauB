@@ -9,6 +9,14 @@ public class LivroDigital extends Livro {
         this.formato = formato;
         this.tamanhoArquivo = tamanhoArquivo;
     }
+    
+    public String getFormato() {
+        return formato;
+    }
+
+    public double getTamanhoArquivo() {
+        return tamanhoArquivo;
+    }
 
     @Override
     public void exibirDetalhes() {
