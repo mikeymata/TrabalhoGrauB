@@ -7,8 +7,7 @@ public class Arquivo {
     private static final String CAMINHO = "livros.csv";
 
     public static void salvarItens(List<ItemBiblioteca> itens) {
-        try (BufferedWriter arquivo =
-                new BufferedWriter(new FileWriter(CAMINHO, false))) {
+        try (BufferedWriter arquivo = new BufferedWriter(new FileWriter(CAMINHO, false))) {
             for (ItemBiblioteca item : itens) {
                 String[] dados = new String[11];
                 for (int i = 0; i < dados.length; i++) {
@@ -67,8 +66,7 @@ public class Arquivo {
         if (!arquivo.exists()) {
             return itens;
         }
-        try (BufferedReader leitor =
-                new BufferedReader(new FileReader(arquivo))) {
+        try (BufferedReader leitor = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             while ((linha = leitor.readLine()) != null) {
                 String[] dados = linha.split(";", -1);
@@ -105,10 +103,8 @@ public class Arquivo {
         for (String registro : exemplares) {
             String[] partes = registro.split(":");
             int codigo = Integer.parseInt(partes[0]);
-            boolean disponivel =
-                    Boolean.parseBoolean(partes[1]);
-            Exemplar exemplar =
-                    new Exemplar(codigo, disponivel);
+            boolean disponivel = Boolean.parseBoolean(partes[1]);
+            Exemplar exemplar = new Exemplar(codigo, disponivel);
             if (item instanceof LivroDigital) {
                 ((LivroDigital) item).adicionarExemplar(exemplar);
             } else if (item instanceof Livro) {
