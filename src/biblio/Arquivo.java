@@ -5,10 +5,13 @@ import java.util.List;
 
 public class Arquivo {
     private static final String CAMINHO = "livros.csv";
-
+    
+    //metodo para gravar os dados da biblioteca
     public static void salvarItens(List<ItemBiblioteca> itens) {
+    	//abrir o arquivo com o segundo parametro false, significando que ele sera sobrescrito
         try (BufferedWriter arquivo = new BufferedWriter(new FileWriter(CAMINHO, false))) {
             for (ItemBiblioteca item : itens) {
+            	//vetor de dados
                 String[] dados = new String[11];
                 for (int i = 0; i < dados.length; i++) {
                     dados[i] = "";
@@ -49,6 +52,7 @@ public class Arquivo {
             System.out.println("Erro ao salvar arquivo.");
         }
     }
+    //metodo de transformar a lista de exemplares em String
     private static String serializarExemplares(List<Exemplar> exemplares) {
         StringBuilder resultado = new StringBuilder();
         for (Exemplar exemplar : exemplares) {
@@ -59,8 +63,9 @@ public class Arquivo {
         }
         return resultado.toString();
     }
-
+    //metodo que transforma texto novamente em objetos
     public static ArrayList<ItemBiblioteca> carregarItens() {
+    	//lista que vai receber os itens recuperados
         ArrayList<ItemBiblioteca> itens = new ArrayList<>();
         File arquivo = new File(CAMINHO);
         if (!arquivo.exists()) {
@@ -69,13 +74,16 @@ public class Arquivo {
         try (BufferedReader leitor = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             while ((linha = leitor.readLine()) != null) {
+            	//separa o texto usando ponto e virgula
                 String[] dados = linha.split(";", -1);
                 if (dados.length != 11) {
                     continue;
                 }
+                //recuperar as infos basicas
                 int codigo = Integer.parseInt(dados[1]);
                 String titulo = dados[2];
                 int ano = Integer.parseInt(dados[3]);
+                //reconstruir o objeto correto
                 ItemBiblioteca item = null;
                 if (dados[0].equals("L")) {
                     item = new Livro(codigo, titulo, ano, dados[4], dados[5]);
@@ -84,6 +92,7 @@ public class Arquivo {
                 } else if (dados[0].equals("R")) {
                     item = new Revista(codigo, titulo, ano, Integer.parseInt(dados[6]), dados[7]);
                 }
+                //recuperar os exemplares
                 if (item != null) {
                     adicionarExemplares(item, dados[10]);
                     itens.add(item);
@@ -95,16 +104,23 @@ public class Arquivo {
         }
         return itens;
     }
+    //metodo que reconstroi os exemplares que foram transformados em texto
     private static void adicionarExemplares(ItemBiblioteca item, String dados) {
+    	//verifica se existem exemplares
         if (dados.isEmpty()) {
             return;
         }
+        //separa eles
         String[] exemplares = dados.split(",");
         for (String registro : exemplares) {
+        	//separa cod e disp
             String[] partes = registro.split(":");
+            //converte os valores
             int codigo = Integer.parseInt(partes[0]);
             boolean disponivel = Boolean.parseBoolean(partes[1]);
+            //recria o exemplar
             Exemplar exemplar = new Exemplar(codigo, disponivel);
+            //colocar o exemplar como o item correto
             if (item instanceof LivroDigital) {
                 ((LivroDigital) item).adicionarExemplar(exemplar);
             } else if (item instanceof Livro) {
